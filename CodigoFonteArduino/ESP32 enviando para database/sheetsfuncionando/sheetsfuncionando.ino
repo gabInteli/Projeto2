@@ -1,17 +1,18 @@
-//incluindo bibliotecas
 #include <Adafruit_AHTX0.h>
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-//definindo em qual entrada    esta cada led 
-int azul = 21;       // Atribui o valor 9 a variável azul
-int verde = 20;      // Atribui o valor 10 a variável verde
-int vermelho = 19;   // Atribui o valor 12 a variável vermelho
-int azul2 = 39;      // Atribui o valor 9 a variável azul
-int verde2 = 40;     // Atribui o valor 10 a variável verde
-int vermelho2 = 41;  // Atribui o valor 12 a variável vermelho
+#define SDA_PIN 15
+#define SCL_PIN 16
+
+int blueTemp = 21;       
+int greenTemp = 20;      
+int redTemp = 19;   
+int blueHum = 39;      
+int greenHum = 40;     
+int redHum = 41;  
 
 const char* ssid = "MSMXD";
 const char* password = "12345678";
@@ -25,22 +26,17 @@ float value1;
 float value2;
 float value3;
 
-#define SDA_PIN 15
-#define SCL_PIN 16
-
 int lcdColumns = 16;
 int lcdRows = 2;
 
 Adafruit_AHTX0 aht;
 LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows);
 
-
-
 void setup() {
   Serial.begin(115200);
   Wire.begin(SDA_PIN, SCL_PIN);
-  WiFi.mode(WIFI_STA);
-  WiFi.begin(ssid, password);
+  WiFi.mode(WIFI_STA); // Configura o ESP32 como uma estação WiFi, ou seja, a placa se conectará a um ponto de acesso.
+  WiFi.begin(ssid, password); // Conecta na rede definida pelas variáveis.
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
@@ -56,30 +52,30 @@ void setup() {
   }
   Serial.println("AHT10 or AHT20 found");
 
-  pinMode(azul, OUTPUT);       // Define a variável azul como saída
-  pinMode(verde, OUTPUT);      // Define a variável verde como saída
-  pinMode(vermelho, OUTPUT);   // Define a variável vermelho como saída
-  pinMode(azul2, OUTPUT);      // Define a variável azul como saída
-  pinMode(verde2, OUTPUT);     // Define a variável verde como saída
-  pinMode(vermelho2, OUTPUT);  // Define a variável vermelho como saída
+  pinMode(blueTemp, OUTPUT);       
+  pinMode(greenTemp, OUTPUT);      
+  pinMode(redTemp, OUTPUT);   
+  pinMode(blueHum, OUTPUT);      
+  pinMode(greenHum, OUTPUT);     
+  pinMode(redHum, OUTPUT); 
 }
 
-void sendDataToSheet(void) {
+void sendDataToSheet(void) { // Função que mandará os dados capturados pelos sensores para uma planilha, que atualmente opera como nosso banco de dados.
   String url = server + "/trigger/" + eventName + "/with/key/" + IFTTT_Key + "?value1=" + String((float)value1) + "&value2=" + String((float)value2) + "&value3=" + String((float)value3);
   Serial.println(url);
-  //Start to send data to IFTTT
+  // Começa a mandar dados para o IFTTT.
   HTTPClient http;
   Serial.print("[HTTP] begin...\n");
-  http.begin(url);  //HTTP
+  http.begin(url); 
 
   Serial.print("[HTTP] GET...\n");
-  // start connection and send HTTP header
+  // Começa a conexão e envia o cabeçalho HTTP.
   int httpCode = http.GET();
-  // httpCode will be negative on error
+  // httpCode será negativo quando der erro.
   if (httpCode > 0) {
-    // HTTP header has been send and Server response header has been handled
+    // O cabeçalho HTTP foi enviado e o cabeçalho de resposta do servidor foi tratado.
     Serial.printf("[HTTP] GET... code: %d\n", httpCode);
-    // file found at server
+    // Arquivo encontrado no servidor.
     if (httpCode == HTTP_CODE_OK) {
       String payload = http.getString();
       Serial.println(payload);
@@ -95,7 +91,7 @@ void loop() {
 
 
   sensors_event_t humidity, temp;
-  aht.getEvent(&humidity, &temp);  // populate temp and humidity objects with fresh data
+  aht.getEvent(&humidity, &temp);  // Preenche os objetos temp e humidity com dados novos.
   Serial.print("Temperature: ");
   Serial.print(temp.temperature);
   Serial.println(" degrees C");
@@ -111,24 +107,25 @@ void loop() {
   delay(1000);
 
   delay(500);
-//verifica as temperaturas obtidas e acende o led correspondente de acordo com o resultado obtido
+
+// Verifica as temperaturas obtidas e acende o led correspondente de acordo com o resultado obtido.
   if (temp.temperature > 23 && temp.temperature < 30) {
-    Verde1();
+    rightTemperature();
     delay(10000);
   } else {
-    Vermelho1();
+    wrongTemperature();
     delay(10000);
   }
-  //verifica as umidades obtidas e acende o led correspondente de acordo com o resultado obtido
+  // Verifica as umidades obtidas e acende o led correspondente de acordo com o resultado obtido.
   if (humidity.relative_humidity < 80 && humidity.relative_humidity > 40) {
-    Verde2();
+    rightHumidity();
     delay(10000);
   } else {
-    Vermelho2();
+    wrongHumidity();
     delay(10000);
   }
 
-//pega a temperatura para enviar à database
+// Pega a temperatura para enviar à planilha.
   value1 = temp.temperature;
   value2 = humidity.relative_humidity;
 
@@ -136,30 +133,30 @@ void loop() {
   delay(10000);
 }
 
-//funcoes para fazer o led rgb ficar nas cores desejadas
-//luz que refere à temperatura quando não está em seu estado ideal
-void Vermelho1() {
-  digitalWrite(vermelho, HIGH);  // Coloca vermelho em nível alto, ligando-o
-  digitalWrite(verde, LOW);
-  delay(1000);  // Intervalo de 1 segundo
-                // Intervalo de 1 segundo
+//Funções para fazer o led rgb ficar nas cores desejadas, de acordo com o ambiente.
+
+// Luz que refere à temperatura quando não está em seu estado ideal.
+void wrongTemperature() {
+  digitalWrite(redTemp, HIGH); 
+  digitalWrite(greenTemp, LOW);
+  delay(1000);        
 }
-//luz que refere à temperatura quando está em seu estado ideal
-void Verde1() {
-  digitalWrite(verde, HIGH);  //Coloca verde em nível alto
-  digitalWrite(vermelho, LOW);
-  delay(1000);  //Intervalo de 1 segundo
+// Luz que refere à temperatura quando está em seu estado ideal.
+void rightTemperature() {
+  digitalWrite(greenTemp, HIGH); 
+  digitalWrite(redTemp, LOW);
+  delay(1000);  
 }
-//luz que refere à umidade quando não está em seu estado ideal
-void Vermelho2() {
-  digitalWrite(vermelho2, HIGH);  // Coloca vermelho em nível alto, ligando-o
-  digitalWrite(verde2, LOW);
-  delay(1000);  // Intervalo de 1 segundo
+// Luz que refere à umidade quando não está em seu estado ideal.
+void wrongHumidity() {
+  digitalWrite(redHum, HIGH); 
+  digitalWrite(greenHum, LOW);
+  delay(1000);  
 }
-//luz que refere à umidade quando está em seu estado ideal
-void Verde2() {
-  digitalWrite(verde2, HIGH);  //Coloca verde em nível alto
-  digitalWrite(vermelho2, LOW);
-  delay(1000);  //Intervalo de 1 segundo
+// Luz que refere à umidade quando está em seu estado ideal.
+void rightHumidity() {
+  digitalWrite(greenHum, HIGH);  
+  digitalWrite(redHum, LOW);
+  delay(1000);  
 }
 

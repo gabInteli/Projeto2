@@ -2,16 +2,15 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
-int azul = 21;       // Atribui o valor 9 a variável azul
-int verde = 20;      // Atribui o valor 10 a variável verde
-int vermelho = 19;   // Atribui o valor 12 a variável vermelho
-int azul2 = 39;      // Atribui o valor 9 a variável azul
-int verde2 = 40;     // Atribui o valor 10 a variável verde
-int vermelho2 = 41;  // Atribui o valor 12 a variável vermelho
-
-
 #define SDA_PIN 15
 #define SCL_PIN 16
+
+int blueTemp = 21;       
+int greenTemp = 20;      
+int redTemp = 19;   
+int blueHum = 39;      
+int greenHum = 40;     
+int redHum = 41;  
 
 int lcdColumns = 16;
 int lcdRows = 2;
@@ -32,12 +31,12 @@ void setup() {
   }
   Serial.println("AHT10 or AHT20 found");
 
-    pinMode(azul, OUTPUT);       // Define a variável azul como saída
-    pinMode(verde, OUTPUT);      // Define a variável verde como saída
-    pinMode(vermelho, OUTPUT);   // Define a variável vermelho como saída
-    pinMode(azul2, OUTPUT);      // Define a variável azul como saída
-    pinMode(verde2, OUTPUT);     // Define a variável verde como saída
-    pinMode(vermelho2, OUTPUT);  // Define a variável vermelho como saída
+    pinMode(blueTemp, OUTPUT);       
+    pinMode(greenTemp, OUTPUT);      
+    pinMode(redTemp, OUTPUT);   
+    pinMode(blueHum, OUTPUT);      
+    pinMode(greenHum, OUTPUT);     
+    pinMode(redHum, OUTPUT);  
 
 }
 
@@ -45,7 +44,7 @@ void setup() {
 void loop() {
 
   sensors_event_t humidity, temp;
-  aht.getEvent(&humidity, &temp);// populate temp and humidity objects with fresh data
+  aht.getEvent(&humidity, &temp); // Preenche os objetos temp e humidity com dados novos.
   Serial.print("Temperature: "); Serial.print(temp.temperature); Serial.println(" degrees C");
   Serial.print("Humidity: "); Serial.print(humidity.relative_humidity); Serial.println("% rH");
   lcd.setCursor(0, 0);
@@ -57,49 +56,49 @@ void loop() {
   delay(1000);
 
   delay(500);
-    
+
+// Verifica as temperaturas obtidas e acende o led correspondente de acordo com o resultado obtido.    
       if (temp.temperature > 23 && temp.temperature < 30) {
-        Verde1();
+        rightTemperature();
           delay(10000);
       }
       else {
-        Vermelho1();
+        wrongTemperature();
           delay(10000);
     }
       if (humidity.relative_humidity < 80 && humidity.relative_humidity > 40) {
-      Verde2();
+      rightHumidity();
         delay(10000);
     }
     else {
-      Vermelho2();
+      wrongHumidity();
         delay(10000);
     }
 }
 
-
-void Vermelho1() {
-            digitalWrite(vermelho, HIGH);  // Coloca vermelho em nível alto, ligando-o
-            digitalWrite(verde, LOW);
-            delay(1000);         // Intervalo de 1 segundo
-             // Intervalo de 1 segundo
-
+//Funções para fazer o led rgb ficar nas cores desejadas, de acordo com o ambiente.
+// Luz que refere à temperatura quando não está em seu estado ideal.
+void wrongTemperature() {
+            digitalWrite(redTemp, HIGH);  
+            digitalWrite(greenTemp, LOW);
+            delay(1000);        
         }
-
-void Verde1() {
-            digitalWrite(verde, HIGH);//Coloca verde em nível alto
-            digitalWrite(vermelho, LOW);
-            delay(1000);//Intervalo de 1 segundo
+// Luz que refere à temperatura quando está em seu estado ideal.
+void rightTemperature() {
+            digitalWrite(greenTemp, HIGH);
+            digitalWrite(redTemp, LOW);
+            delay(1000);
         }
-
-void Vermelho2() {
-            digitalWrite(vermelho2, HIGH);  // Coloca vermelho em nível alto, ligando-o
-            digitalWrite(verde2, LOW);
-            delay(1000);         // Intervalo de 1 segundo
+// Luz que refere à umidade quando não está em seu estado ideal.
+void wrongHumidity() {
+            digitalWrite(redHum, HIGH);  
+            digitalWrite(greenHum, LOW);
+            delay(1000);        
         }
-
-void Verde2() {
-            digitalWrite(verde2, HIGH);//Coloca verde em nível alto
-            digitalWrite(vermelho2, LOW);
-            delay(1000);//Intervalo de 1 segundo
+// Luz que refere à umidade quando está em seu estado ideal.
+void rightHumidity() {
+            digitalWrite(greenHum, HIGH);
+            digitalWrite(redHum, LOW);
+            delay(1000);
         }
 
