@@ -4,33 +4,35 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-#define SDA_PIN 15
-#define SCL_PIN 16
+#define SDA_PIN 15//
+#define SCL_PIN 16//
 
-int blueTemp = 21;       
-int greenTemp = 20;      
-int redTemp = 19;   
-int blueHum = 39;      
-int greenHum = 40;     
-int redHum = 41;  
+int blueTemp = 21;//pinangem do RGB de temperatura cor azul  
+int greenTemp = 20;//pinangem do RGB de temperatura cor verde     
+int redTemp = 19;//pinangem do RGB de temperatura cor vermelha   
+int blueHum = 39;//pinangem do RGB de umidade cor azul      
+int greenHum = 40;//pinangem do RGB de umidade cor verde     
+int redHum = 41;//pinangem do RGB de umidade cor vermelha  
 
-const char* ssid = "MSMXD";
-const char* password = "12345678";
+//nome da rede wifi do microcontrolador e sua senha 
+const char* ssid = "MSMXD"; //nome da rede wifi
+const char* password = "12345678";//nome da rede bluetooth
 
+//Parametros para envio de dados coletados para o server 
 String server = "http://maker.ifttt.com";
 String eventName = "esp32_data";
 String IFTTT_Key = "dSu74GOXfLf7WJPSASzxEXmzq7JT5XY1TLfBf4UwSu3";
 String IFTTTUrl = "http://maker.ifttt.com/trigger/temp_data/with/key/e272MXJrh4_et5KUm56LmYHjJrNRtj9BjxUT5u6Njr7";
 
-float value1;
-float value2;
-float value3;
+float value1;//variavel criada salvar o valor da temperatura  
+float value2;//variavel criada salvar o valor da umidade 
+float value3;//deletar value3
 
-int lcdColumns = 16;
-int lcdRows = 2;
+int lcdColumns = 16; //definição do numero de colunas do LCD
+int lcdRows = 2; //definição do numero de linhas do LCD
 
-Adafruit_AHTX0 aht;
-LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows);
+Adafruit_AHTX0 aht;//chamada da biblioteca do aht10
+LiquidCrystal_I2C lcd(0x27, lcdColumns, lcdRows);//
 
 void setup() {
   Serial.begin(115200);
@@ -52,6 +54,7 @@ void setup() {
   }
   Serial.println("AHT10 or AHT20 found");
 
+//Setagem de OUTPUT´S para a piangem dos LED´S RGB
   pinMode(blueTemp, OUTPUT);       
   pinMode(greenTemp, OUTPUT);      
   pinMode(redTemp, OUTPUT);   
@@ -61,7 +64,7 @@ void setup() {
 }
 
 void sendDataToSheet(void) { // Função que mandará os dados capturados pelos sensores para uma planilha, que atualmente opera como nosso banco de dados.
-  String url = server + "/trigger/" + eventName + "/with/key/" + IFTTT_Key + "?value1=" + String((float)value1) + "&value2=" + String((float)value2) + "&value3=" + String((float)value3);
+  String url = server + "/trigger/" + eventName + "/with/key/" + IFTTT_Key + "?value1=" + String((float)value1) + "&value2=" + String((float)value2) + "&value3=" + String((float)value3);//deletar value3
   Serial.println(url);
   // Começa a mandar dados para o IFTTT.
   HTTPClient http;
@@ -93,17 +96,17 @@ void loop() {
   sensors_event_t humidity, temp;
   aht.getEvent(&humidity, &temp);  // Preenche os objetos temp e humidity com dados novos.
   Serial.print("Temperature: ");
-  Serial.print(temp.temperature);
+  Serial.print(temp.temperature);// printa no serial o valor da temperatura lida pelo sensor AHT10 
   Serial.println(" degrees C");
   Serial.print("Humidity: ");
-  Serial.print(humidity.relative_humidity);
+  Serial.print(humidity.relative_humidity);// printa no serial o valor da umidade lida pelo sensor AHT10
   Serial.println("% rH");
   lcd.setCursor(0, 0);
-  lcd.print("Temp:");
-  lcd.print(temp.temperature);
+  lcd.print("Temperature:");
+  lcd.print(temp.temperature);// printa no lcd o valor da umidade lida pelo sensor AHT10
   lcd.setCursor(0, 1);
-  lcd.print("Umidade:");
-  lcd.print(humidity.relative_humidity);
+  lcd.print("Humidity:");
+  lcd.print(humidity.relative_humidity);// printa no lcd o valor da umidade lida pelo sensor AHT10
   delay(1000);
 
   delay(500);
