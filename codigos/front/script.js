@@ -28,6 +28,7 @@ function myItems(jsonString) {
   json.table.cols[3].label = "Temperatura";
   json.table.cols[4].label = "Umidade";
 
+  
   var table = "<table><tr>";
   json.table.cols.forEach(
     (colonne) => (table += "<th>" + colonne.label + "</th>")
