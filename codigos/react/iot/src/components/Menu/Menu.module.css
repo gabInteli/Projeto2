@@ -1,0 +1,68 @@
+.menu {
+    width: 100%;
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.menu .container {
+    max-width: 1140px;
+    margin: auto;
+}
+
+.menu .cardContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin: 1rem;
+    column-gap: 1rem;
+    row-gap: 1rem;
+}
+
+.menu .card {
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px;
+    width: 400px;
+    padding: 3rem 2rem;
+    text-align: center;
+    border-radius: 24px;
+    margin: auto;
+    background-color: rgb(133, 133, 133);
+}
+
+.menu .card:hover {
+    transform: scale(1.05);
+    transition: 0.4s ease-in-out;
+}
+
+.menu .card h3 {
+    font-size: 30px;
+    margin: 1rem 0;
+    color: #ffffff;
+}
+
+.menu .card p {
+    font-size: 30px;
+    color: #ccc;
+}
+
+.menu .icon-container {
+    border-radius: 50px;
+    display: inline-flex;
+    padding: 1rem;
+    color: #ffffff;
+}
+
+.menu .icon {
+    font-size: 3rem;
+    color: #333;
+}
+
+@media screen and (max-width:850px) {
+    .menu .card-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.menu .config-container {
+    size: 100px;
+}
