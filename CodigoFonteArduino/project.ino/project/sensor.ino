@@ -12,6 +12,7 @@ void leds(){
     pinMode(blueHum, OUTPUT);      
     pinMode(greenHum, OUTPUT);     
     pinMode(redHum, OUTPUT);
+  return;
 }
 
 // Inicialização do sensor
@@ -32,6 +33,7 @@ float scanTemperature() {
   sensors_event_t humidity, temp; // Criação de objetos
   aht.getEvent(&humidity, &temp); // Preenche os objetos temp e humidity com dados novos.
   Serial.print("Temperatura: "); Serial.print(temp.temperature); Serial.println(" degrees C"); 
+return temp.temperature;
 }
 
 //Função que retorna a umidade do ambiente
@@ -39,6 +41,7 @@ float scanHumidity() {
   sensors_event_t humidity, temp; // Criação de objetos
   aht.getEvent(&humidity, &temp); // Preenche os objetos temp e humidity com dados novos.
   Serial.print("Umidade: "); Serial.print(humidity.relative_humidity); Serial.println("% rH");
+  return humidity.relative_humidity;
 }
 
 void color_led(){
@@ -61,6 +64,7 @@ void color_led(){
       wrongHumidity();
         delay(10000);
     }
+  return;
 }
 
 //Funções para fazer o led rgb ficar nas cores desejadas, de acordo com o ambiente.
@@ -68,23 +72,27 @@ void color_led(){
 void wrongTemperature() {
             digitalWrite(redTemp, HIGH);  //aciona a luz vermelha do led de temperatura.
             digitalWrite(greenTemp, LOW); //desativa luz verde do led de temperatura.
-            delay(1000);        
+            delay(1000);  
+          return;      
         }
 // Luz que refere à temperatura quando está em seu estado ideal.
 void rightTemperature() {
             digitalWrite(greenTemp, HIGH); //aciona luz verde do led de temperatura.
             digitalWrite(redTemp, LOW); //desativa luz vermelha do led de temperatura.
             delay(1000);
+          return;
         }
 // Luz que refere à umidade quando não está em seu estado ideal.
 void wrongHumidity() {
             digitalWrite(redHum, HIGH);  //aciona luz vermelha do led de umidade.
             digitalWrite(greenHum, LOW); //desativa luz verde do led de umidade.
-            delay(1000);        
+            delay(1000);      
+          return;  
         }
 // Luz que refere à umidade quando está em seu estado ideal.
 void rightHumidity() {
             digitalWrite(greenHum, HIGH); //aciona luz verde do led de umidade.
             digitalWrite(redHum, LOW); //desativa luz vermelha do led de umidade.
             delay(1000);
+          return;
         }

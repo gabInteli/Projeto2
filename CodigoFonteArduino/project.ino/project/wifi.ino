@@ -2,7 +2,7 @@
 #include <HTTPClient.h>
 
 //nome da rede wifi do microcontrolador e sua senha 
-const char* ssid = "C2PO_IoT"; //nome da rede wifi
+const char* ssid = "MSMXD"; //nome da rede wifi
 const char* password = "12345678";//senha da rede wifi
 
 //Parametros para envio de dados coletados para o server 

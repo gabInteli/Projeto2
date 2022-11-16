@@ -21,7 +21,7 @@ void displayInitialization() {
   lcd.backlight();
 }
 
-void showMessage(float temp, float humidity) {
+void showMessage(String temp, String humidity) {
 // Mostra a mensagem com o status da temperatura setada para o ínicio da primeira linha
   lcd.setCursor(0, 0);
   lcd.print("Temp:");
@@ -31,5 +31,4 @@ void showMessage(float temp, float humidity) {
   lcd.print("Umidade:");
   lcd.print(humidity);
   delay(1000);
-
 }
