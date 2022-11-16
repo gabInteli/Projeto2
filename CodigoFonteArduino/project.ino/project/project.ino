@@ -1,10 +1,10 @@
 // Inicialização de variáveis globais, comportarão saídas de LED's e o valor que elas guardam é referente aos pinos que os alimentam
-const blueTemp = 21;//definição da pinagem do led azul do RGB de temperatura        
-int greenTemp = 20;//definição de pinagem do led verde do RGB de temperatura       
-const redTemp = 19;//definição de pinagem do led vermelho do RGB de temperatura    
-const blueHum = 39;//definiçao de pinagem do led azul do RGB de umidade       
-int greenHum = 40;//definição de pinagem do led verde do RGB de umidade      
-const redHum = 41;//definição de pinagem do led vermelho 
+const int blueTemp = 21;//definição da pinagem do led azul do RGB de temperatura        
+const int greenTemp = 20;//definição de pinagem do led verde do RGB de temperatura       
+const int redTemp = 19;//definição de pinagem do led vermelho do RGB de temperatura    
+const int blueHum = 39;//definiçao de pinagem do led azul do RGB de umidade       
+const int greenHum = 40;//definição de pinagem do led verde do RGB de umidade      
+const int redHum = 41;//definição de pinagem do led vermelho 
 
 float temperatura1;//variavel criada salvar o valor da temperatura  
 float umidade2;//variavel criada salvar o valor da umidade 
