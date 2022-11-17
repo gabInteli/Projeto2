@@ -30,5 +30,5 @@ void showMessage(String temp, String humidity) {
   lcd.setCursor(0, 1);
   lcd.print("Umidade:");
   lcd.print(humidity);
-  delay(1000);
+  delay(100);
 }

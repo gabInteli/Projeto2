@@ -12,6 +12,7 @@ void leds(){
     pinMode(blueHum, OUTPUT);      
     pinMode(greenHum, OUTPUT);     
     pinMode(redHum, OUTPUT);
+    pinMode(yellowError, OUTPUT);
   return;
 }
 
@@ -51,22 +52,29 @@ void color_led(){
       if (temp.temperature > 22 && temp.temperature < 30) {
         digitalWrite(greenTemp, HIGH); //aciona luz verde do led de temperatura.
         digitalWrite(redTemp, LOW);
-          delay(10000);
+          delay(1000);
       }
       else {
         digitalWrite(redTemp, HIGH);  //aciona a luz vermelha do led de temperatura.
         digitalWrite(greenTemp, LOW);
-          delay(10000);
+          delay(1000);
     }
       if (humidity.relative_humidity < 80 && humidity.relative_humidity > 40) {
       digitalWrite(greenHum, HIGH); //aciona luz verde do led de umidade.
       digitalWrite(redHum, LOW);
-        delay(10000);
+        delay(1000);
     }
     else {
       digitalWrite(redHum, HIGH);  //aciona luz vermelha do led de umidade.
       digitalWrite(greenHum, LOW);
-        delay(10000);
+        delay(1000);
     }
   return;
 }
+
+void sensortest(){
+    if (! aht.begin()) {
+    digitalWrite (yellowError, HIGH);  
+    while (1) delay(100);
+  }
+} 
