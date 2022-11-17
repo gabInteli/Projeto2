@@ -1,7 +1,10 @@
 import React, {useState} from 'react'
+import Image from 'next/image';
 import {AiOutlineMenu, AiOutlineClose} from 'react-icons/ai'
 import {BsGear} from 'react-icons/bs'
 import Styles from './Navbar.module.css';
+
+import logoGerdau from '../../../public/img/logoGerdau.png'
 
 export default function Navbar() {
   const [click, setClick] = useState(false)
@@ -10,8 +13,8 @@ export default function Navbar() {
   return (
     <div className={Styles.navbar}>
         <div className={Styles.container}>
-            <h1 style={{ marginLeft:'1rem', color: '#FFFFFF'}}>Logo</h1>
-            <ul className={click ? 'nav active' : 'nav'} style={{display:'flex'}}>
+            <Image src={logoGerdau} width={200}/>            
+                <ul className={click ? 'nav active' : 'nav'} style={{display:'flex'}}>
                 <li className={Styles.nav}>
                     <a style={{color: '#f4eeff'}}href="/">Sobre</a>
                 </li>

@@ -20,13 +20,14 @@
 .menu .card {
     flex-direction: column;
     justify-content: space-between;
-    height: 300px;
-    width: 400px;
+    height: 250px;
+    width: 350px;
     padding: 3rem 2rem;
     text-align: center;
     border-radius: 24px;
     margin: auto;
-    background-color: rgb(133, 133, 133);
+    background-color: #fff;
+    border: solid 1pt rgb(133, 133, 133);
 }
 
 .menu .card:hover {

@@ -14,7 +14,10 @@ import {
   Input,
   Checkbox,
   Typography,
+  Avatar,
 } from "antd";
+
+import { UserOutlined, LockOutlined } from '@ant-design/icons'
 
 const { Title } = Typography;
 
@@ -42,19 +45,12 @@ export default function LoginPage() {
           width: "50vw",
         }}
       >
-        <Col>
-          <Title style={{ margin: 0, fontSize: "4em", color:'#fff'}} level={1}>
-            Começe 
-          </Title>
-          <Title style={{ margin: 0, fontSize: "4em", color:'#fff'}} level={1}>
-            sua jornada !
-          </Title>
-        </Col>
+       
       </Col>
       <Col>
         <Row
           style={{
-            width: "50vw",
+            width: "45vw",
             backgroundImage: "url(/img/imageG.png)",
             backgroundRepeat: "no-repeat",
             height: "30vh",
@@ -63,10 +59,10 @@ export default function LoginPage() {
           }}
         ></Row>
         <Row justify='center' style={{display:'flex'}}>
-          <Title level={2}>Login</Title>
+          <Title level={1}>Login</Title>
         </Row>
         <Row justify='center'>
-          <Col>
+          <Col span={15}>
             <Form
               form={form}
               size="large"
@@ -77,8 +73,9 @@ export default function LoginPage() {
               onFinishFailed={onFinishFailed}
               autoComplete="off"
             >
+              
+              <Title level={5}>Nome de Usuário</Title>
               <Form.Item
-                label="Nome de Usuário"
                 name="username"
                 rules={[
                   {
@@ -86,27 +83,33 @@ export default function LoginPage() {
                     message: "Por favor, digite seu nome de usuário",
                   },
                 ]}
-              >
-                <Input />
+              > <Row>
+                
+                <Input prefix={<UserOutlined />}/>
+              </Row>
               </Form.Item>
-
+           
+              
+              <Title level={5}>Senha</Title>
               <Form.Item
-                label="Senha"
                 name="password"
                 rules={[
                   { required: true, message: "Por favor, digite sua senha" },
                 ]}
               >
-                <Input.Password />
+                <Input.Password prefix={<LockOutlined/>}/>
               </Form.Item>
               <Form.Item name="remember" valuePropName="checked">
                 <Checkbox>Lembrar de mim</Checkbox>
               </Form.Item>
+              <Row style= {{justifyContent:'end'}}>
               <Form.Item>
-                <Button type="primary" htmlType="submit">
-                  Acessar
+                <Button type="primary" htmlType="submit" style={{borderRadius:'20px', backgroundColor:'green', border:'none', width:'100px'}} size='large'>
+                  Entrar
                 </Button>
               </Form.Item>
+              </Row>
+              
             </Form>
           </Col>
         </Row>
