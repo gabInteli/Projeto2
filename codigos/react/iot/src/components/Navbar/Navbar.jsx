@@ -16,10 +16,10 @@ export default function Navbar() {
             <Image src={logoGerdau} width={200}/>            
                 <ul className={click ? 'nav active' : 'nav'} style={{display:'flex'}}>
                 <li className={Styles.nav}>
-                    <a style={{color: '#f4eeff'}}href="/">Sobre</a>
+                    <a style={{color: '#f4eeff', fontSize:'14pt'}}href="/">Sobre</a>
                 </li>
                 <li className={Styles.nav}>
-                    <a style={{color: '#f4eeff'}}href="/">Desenvolvedores</a>
+                    <a style={{color: '#f4eeff', fontSize:'14pt'}}href="/">Desenvolvedores</a>
                 </li>
             </ul>
             <div onClick={handleClick} className={Styles.hamburguer}>
