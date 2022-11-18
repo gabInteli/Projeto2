@@ -105,7 +105,7 @@ export default function LoginPage() {
               <Row style= {{justifyContent:'end'}}>
               <Form.Item>
                 <Button type="primary" htmlType="submit" style={{borderRadius:'20px', backgroundColor:'green', border:'none', width:'100px'}} size='large'>
-                  Entrar
+                  <a href='/dashboard'>Entrar</a>
                 </Button>
               </Form.Item>
               </Row>
