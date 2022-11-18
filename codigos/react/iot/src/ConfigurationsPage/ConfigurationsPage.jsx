@@ -16,12 +16,17 @@ export default function ConfigurationsPage() {
     const [texto, setTexto] = useState(false);
 
     // Funções para o menu dropdown
+
+    const handleFormClick = event => {
+        setIsShown(current => !current);
+    };
+
     const handleMenuClick = (key) => {
         message.info(`Rede ${key.key} selecionada.`);
         {setTexto(!texto)}
         const valor = key.key
         setChave(valor);
-
+        handleFormClick()
       };
 
       console.log(chave)
@@ -31,14 +36,10 @@ export default function ConfigurationsPage() {
     { label: 'Rede 2', key: '2', icon: <GrWifiLow />},
     { label: 'Rede 3', key: '3', icon: <GrWifiMedium />},
         ];
-        
-     const handleFormClick = event => {
-        setIsShown(current => !current);
-    };
     
       const menuProps = {
         items,
-        onClick: handleMenuClick
+        onClick: handleMenuClick,
       };
     // Funções para o form de senha
     const onFinish = (values) => {
@@ -58,7 +59,7 @@ export default function ConfigurationsPage() {
 
                 <Dropdown menu={menuProps}>
                     <Button style={{width:"280px", height:"50px" }}>
-                        <Space onClick={handleFormClick} style={{fontSize:"25px"}}>
+                        <Space onSelect={handleFormClick} style={{fontSize:"25px"}}>
                             {texto ? (<Text>Rede {chave}</Text>) : (<Text> Selecione a Rede</Text>) }
                             <DownOutlined />
                         </Space>
@@ -89,6 +90,11 @@ export default function ConfigurationsPage() {
                 <Input.Password prefix={<LockOutlined/>}/>
                 </Form.Item>
                 </Form>}
+            </Col>
+        </Row>
+        <Row justify="center" style={{marginTop:"20px", marginLeft:"55px"}}>
+            <Col>
+                {isShown && <Button type="primary">Conectar</Button>}
             </Col>
         </Row>
         </>
