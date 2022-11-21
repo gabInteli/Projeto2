@@ -18,7 +18,7 @@ void wifiInitialization(){
   Serial.println("Viola, Connected !!!");
 }
 void sendDataToSheet(void) { // Função que mandará os dados capturados pelos sensores para uma planilha, que atualmente opera como nosso banco de dados.
-  String url = server + "/trigger/" + eventName + "/with/key/" + IFTTT_Key + "?value1=" + String((float)value1) + "&value2=" + String((float)value2);//deletar value3
+  String url = server + "/trigger/" + eventName + "/with/key/" + IFTTT_Key + "?value1=" + String((float)value1) + "&value2=" + String((float)value2);
   Serial.println(url);
   // Começa a mandar dados para o IFTTT.
   HTTPClient http;
