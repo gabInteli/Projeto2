@@ -4,7 +4,7 @@
 const char* ssid = "MSMXD"; //nome da rede wifi
 const char* password = "12345678";//senha da rede wifi
 //Parametros para envio de dados coletados para o server 
-String server = "http://maker.ifttt.com";
+String server_wifi = "http://maker.ifttt.com";
 String eventName = "esp32_data";
 String IFTTT_Key = "dSu74GOXfLf7WJPSASzxEXmzq7JT5XY1TLfBf4UwSu3";
 String IFTTTUrl = "http://maker.ifttt.com/trigger/temp_data/with/key/e272MXJrh4_et5KUm56LmYHjJrNRtj9BjxUT5u6Njr7";
@@ -18,7 +18,7 @@ void wifiInitialization(){
   Serial.println("Viola, Connected !!!");
 }
 void sendDataToSheet(void) { // Função que mandará os dados capturados pelos sensores para uma planilha, que atualmente opera como nosso banco de dados.
-  String url = server + "/trigger/" + eventName + "/with/key/" + IFTTT_Key + "?value1=" + String((float)value1) + "&value2=" + String((float)value2);
+  String url = server_wifi + "/trigger/" + eventName + "/with/key/" + IFTTT_Key + "?value1=" + String((float)value1) + "&value2=" + String((float)value2);
   Serial.println(url);
   // Começa a mandar dados para o IFTTT.
   HTTPClient http;
