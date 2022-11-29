@@ -42,9 +42,12 @@ void local_web() {
 String HTML = "<!DOCTYPE html>\
 <html>\
 <body>\
-<h1>My First Web Server with ESP32 - Station Mode &#128522;</h1>\
+  <h2>Temperatura</h2>\
+  <h2>Umidade</h2>\
+  <h2>Data de Leitura</h2>\
 </body>\
 </html>";
+
 
 // Handle root url (/)
 void handle_root(){
