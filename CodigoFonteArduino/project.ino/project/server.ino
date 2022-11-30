@@ -4,10 +4,10 @@
 /* INCLUDE ESP2SOTA LIBRARY */
 #include <ESP2SOTA.h>
 
-const char* ssid_server = "covid_S2";
+const char* ssid_server = "ESP32_C2PO";
 const char* password_server = "wifi_123";
 
-String htmlMessage = "";
+//String htmlMessage = "";
 
 WebServer server(80);
 
@@ -42,13 +42,16 @@ void local_web() {
 
 // Handle root url (/)
 void handle_root(){
+  String htmlMessage = "";
   htmlMessage += "<!DOCTYPE html>";
   htmlMessage += "<html>";
   htmlMessage += "<body>";
 
   htmlMessage += "<h2> Temperatura: </h2>";
   htmlMessage += String(value1);
-
+  htmlMessage += "<h2> Umidade: </h2>";
+  htmlMessage += String(value2);
+  
   htmlMessage += "</html>";
 
   server.send(200, "text/html", htmlMessage);
