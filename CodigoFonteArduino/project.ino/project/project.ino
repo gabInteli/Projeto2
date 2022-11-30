@@ -21,7 +21,7 @@ void setup() {
 
 
 void loop() {
-  delay(500);//Intervalo para reiniciar loop
+  delay(60000);//Intervalo para reiniciar loop
   float temp_01 = scanTemperature(); // Variavel que pega os valores de temperatura do ambiente
   float humidity_01 = scanHumidity(); // Variavel que pega os valores de umidade do ambiente
   showMessage(String(temp_01), String(humidity_01)); // Função que indica no LCD os valores lidos de temperatura e umidade
@@ -32,7 +32,6 @@ void loop() {
   sensortest();
   local_web();
   serverInitialization();// Função que inicializa o server roteado pelo esp32
-  delay(1000);
 }
 
 
