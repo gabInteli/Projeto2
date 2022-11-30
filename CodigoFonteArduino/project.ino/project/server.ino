@@ -7,7 +7,10 @@
 const char* ssid_server = "covid_S2";
 const char* password_server = "wifi_123";
 
+String htmlMessage = "";
+
 WebServer server(80);
+
 
 void serverInitialization() {
   
@@ -36,20 +39,21 @@ void local_web() {
   server.handleClient();
   delay(5);
 }
-  /* YOUR LOOP CODE HERE */
-  // HTML & CSS contents which display on web server
-// HTML & CSS contents which display on web server
-String HTML = "<!DOCTYPE html>\
-<html>\
-<body>\
-  <h2>Temperatura</h2>\
-  <h2>Umidade</h2>\
-  <h2>Data de Leitura</h2>\
-</body>\
-</html>";
-
 
 // Handle root url (/)
 void handle_root(){
-  server.send(200, "text/html", HTML);
+  htmlMessage += "<!DOCTYPE html>";
+  htmlMessage += "<html>";
+  htmlMessage += "<body>";
+
+  htmlMessage += "<h2> Temperatura: </h2>";
+  htmlMessage += String(value1);
+
+  htmlMessage += "</html>";
+
+  server.send(200, "text/html", htmlMessage);
 }
+
+
+
+

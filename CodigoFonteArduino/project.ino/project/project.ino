@@ -15,7 +15,7 @@ void setup() {
     wifiInitialization(); // Funçaõ que inicializa a conexão wi-fi do microcontrolador
     sensorInitialization(); // Função que inicializa a leitura do sensor de temperatura e umidade
     displayInitialization(); // Função que inicializa o Display LCD
-  //  serverInitialization();// Funçaõ que inicializa o server rotiado pelo esp32 
+  //  serverInitialization();// Funçaõ que inicializa o server roteado pelo esp32 
     leds();    
 }
 
@@ -31,7 +31,7 @@ void loop() {
   sendDataToSheet();
   sensortest();
   local_web();
-  serverInitialization();// Funçaõ que inicializa o server rotiado pelo esp32
+  serverInitialization();// Função que inicializa o server roteado pelo esp32
   delay(1000);
 }
 
