@@ -14,8 +14,9 @@ void wifiInitialization(){
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
+    printLCDwifiNotConnected();
   }
-  Serial.println("Viola, Connected !!!");
+  Serial.println("Wifi conectado!");
 }
 void sendDataToSheet(void) { // Função que mandará os dados capturados pelos sensores para uma planilha, que atualmente opera como nosso banco de dados.
   String url = server_wifi + "/trigger/" + eventName + "/with/key/" + IFTTT_Key + "?value1=" + String((float)value1) + "&value2=" + String((float)value2);
@@ -40,4 +41,12 @@ void sendDataToSheet(void) { // Função que mandará os dados capturados pelos 
     Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
   }
   http.end();
+  delay(1000);
+}
+
+void checkWifiStatus(){
+    while (WiFi.status() != WL_CONNECTED) {
+    printLCDwifiNotConnected();
+    delay(500);
+  }
 }
