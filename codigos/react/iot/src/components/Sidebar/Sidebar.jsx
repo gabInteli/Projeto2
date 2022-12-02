@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Menu, Button } from 'antd';
+import { Layout, Menu, Button, Card } from 'antd';
 import { MainScreen } from '../MainScreen';
 import { AiOutlineInfoCircle, AiOutlineFile, AiOutlineHome} from 'react-icons/ai'
 import { HiUserCircle } from 'react-icons/hi'
@@ -55,10 +55,11 @@ const App = () => (
           className="site-layout-background"
           style={{
             padding: 24,
-            height: '100vh',
+            height: 'auto',
           }}
         >
           <MainScreen />
+          
         </div>
       </Content>
     </Layout>

@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useState} from "react";
 import Styles from "./MainScreen.module.css";
-import { Col, Row, Space } from "antd";
+import { Col, Row, Space, Card } from "antd";
 import "antd/dist/antd.css";
 import {
   WarningOutlined,
@@ -9,21 +9,7 @@ import {
 } from "@ant-design/icons";
 
 import CardMenu from "./CardMenu";
-
-const houses = [
-  {
-    Title: "1",
-  },
-  {
-    Title: "2",
-  },
-  {
-    Title: "3",
-  },
-  {
-    Title: "4",
-  },
-];
+import Graph3 from '../../DashboardCentral/Graph3'
 
 const status = [
   {
@@ -49,17 +35,49 @@ const status = [
   },
 ];
 
-export default function MainScreen() {
+export default function MainScreen(){ 
+  const [temperature, setTempNow] = useState('')
+  const [humidity, setHumNow] = useState('')
+
+  var id = "14bpB3xWiXSKLvj0G98KrihitnDrFBWzCa9LvV2oOv_Y";
+  var gid = "0";
+  var url =
+    "https://docs.google.com/spreadsheets/d/" +
+    id +
+    "/gviz/tq?tqx=out:json&tq&gid=" +
+    gid;
+
+fetch(url)
+.then((response) => response.text())
+.then((data) => myItems(data.slice(47, -2)));
+
+function myItems(jsonString) {
+var json = JSON.parse(jsonString);
+const lastRegister = json.table.rows[json.table.rows.length - 1];
+
+setHumNow(lastRegister.c[3].v);
+setTempNow(lastRegister.c[4].v);
+
+json.table.cols[0].label = "Data";
+json.table.cols[1].label = "Hora";
+json.table.cols[2].label = "Dispositivo";
+json.table.cols[3].label = "Temperatura";
+json.table.cols[4].label = "Umidade";
+}
+
+
+{
   return (
-    <div className={Styles.menu}>
+    <>
+      <div className={Styles.menu}>
       <div className={Styles.container}>
         <div className={Styles.cardContainer}>
           <div className={Styles.card}>
             <CardMenu
               alert={status[0].Icon}
               heading="1"
-              tempText="XX"
-              humiText='YY'
+              tempText={humidity}
+              humiText={temperature}
             />
           </div>
           <div className={Styles.card}>
@@ -74,7 +92,7 @@ export default function MainScreen() {
             <CardMenu
               alert={status[1].Icon}
               heading="3"
-              tempText="XX"
+              tempText='XX'
               humiText='YY'
             />
           </div>
@@ -89,5 +107,16 @@ export default function MainScreen() {
         </div>
       </div>
     </div>
+    <Row style={{justifyContent:'center'}}>
+    <Card style={{width:'93%'}}>
+    <Graph3
+      estufa1Temp = {[humidity]}
+      estufa1Hum = {[temperature]}
+    />
+  </Card>
+    </Row>
+    
+    </>
   );
+}
 }

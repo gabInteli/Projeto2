@@ -18,8 +18,8 @@ export default function CardMenu({ icon, heading, tempText, humiText, alert, dat
             <Col><Title level={4} >{heading}</Title></Col>
             <Col >{alert}</Col>
           </Row>
-          <Row style = {{justifyContent:'center', marginTop:"-15px"}}><DeviceThermostatIcon style={{fontSize:'30pt'}} /><Text style={{fontSize:'30pt'}}>{tempText}</Text></Row>
-          <Row style = {{justifyContent:'center'}}><OpacityOutlinedIcon style={{fontSize:'30pt'}} /><Text style={{fontSize:'30pt'}}>{humiText}</Text></Row>
+          <Row style = {{justifyContent:'center', marginTop:"-15px"}}><Col><DeviceThermostatIcon style={{fontSize:'24pt', marginTop:'25%'}} /></Col><Col><Text style={{fontSize:'24pt'}}>{tempText}</Text></Col></Row>
+          <Row style = {{justifyContent:'center'}}><OpacityOutlinedIcon style={{fontSize:'24pt', marginTop:'5%'}} /><Text style={{fontSize:'24pt'}}>{humiText}</Text></Row>
           <Row style = {{justifyContent:'center', marginLeft:"22px"}}><Button style={{borderRadius: "20px", backgroundColor:'#A4A4A4', border: "none", color: 'white'}}>Download CSV <AiOutlineDownload /></Button></Row>
         </Col>
       </Row>
