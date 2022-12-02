@@ -1,7 +1,6 @@
 import React from "react";
-import Styles from "./Menu.module.css";
+import Styles from "./MainScreen.module.css";
 import { Col, Row, Space } from "antd";
-import { GiGreenhouse } from "react-icons/gi";
 import "antd/dist/antd.css";
 import {
   WarningOutlined,
@@ -13,16 +12,16 @@ import CardMenu from "./CardMenu";
 
 const houses = [
   {
-    Title: "Casa de Vegetacao 1",
+    Title: "1",
   },
   {
-    Title: "Casa de Vegetacao 2",
+    Title: "2",
   },
   {
-    Title: "Casa de Vegetacao 3",
+    Title: "3",
   },
   {
-    Title: "Casa de Vegetacao 4",
+    Title: "4",
   },
 ];
 
@@ -30,27 +29,27 @@ const status = [
   {
     Icon: (
       <CheckCircleOutlined
-        style={{ color: "green", fontSize: "24pt", backgroundColor: "#fff" }}
+        style={{ color: "green", fontSize: "24pt", backgroundColor: "#fff", marginLeft:'100%' }}
       />
     ),
   },
   {
     Icon: (
       <AlertOutlined
-        style={{ color: "yellow", fontSize: "24pt", backgroundColor: "#fff" }}
+        style={{ color: "yellow", fontSize: "24pt", backgroundColor: "#fff", marginLeft:'100%' }}
       />
     ),
   },
   {
     Icon: (
       <WarningOutlined
-        style={{ color: "red", fontSize: "24pt", backgroundColor: "#fff" }}
+        style={{ color: "red", fontSize: "24pt", backgroundColor: "#fff", marginLeft:'100%' }}
       />
     ),
   },
 ];
 
-export default function Menu() {
+export default function MainScreen() {
   return (
     <div className={Styles.menu}>
       <div className={Styles.container}>
@@ -58,9 +57,7 @@ export default function Menu() {
           <div className={Styles.card}>
             <CardMenu
               alert={status[0].Icon}
-              icon={<GiGreenhouse className={Styles.icon} />}
-              heading="Casa de Vegetacao 1"
-              date='DD/MM/AAAA HH:MM'
+              heading="1"
               tempText="XX"
               humiText='YY'
             />
@@ -68,9 +65,7 @@ export default function Menu() {
           <div className={Styles.card}>
             <CardMenu
               alert={status[2].Icon}
-              icon={<GiGreenhouse className={Styles.icon} />}
-              heading="Casa de Vegetacao 2"
-              date='DD/MM/AAAA HH:MM'
+              heading="2"
               tempText="XX"
               humiText='YY'
             />
@@ -78,9 +73,7 @@ export default function Menu() {
           <div className={Styles.card}>
             <CardMenu
               alert={status[1].Icon}
-              icon={<GiGreenhouse className={Styles.icon} />}
-              heading="Casa de Vegetacao 3"
-              date='DD/MM/AAAA HH:MM'
+              heading="3"
               tempText="XX"
               humiText='YY'
             />
@@ -88,9 +81,7 @@ export default function Menu() {
           <div className={Styles.card}>
             <CardMenu
               alert={status[0].Icon}
-              icon={<GiGreenhouse className={Styles.icon} />}
-              heading="Casa de Vegetacao 4"
-              date='DD/MM/AAAA HH:MM'
+              heading="4"
               tempText="XX"
               humiText='YY'
             />

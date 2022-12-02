@@ -1,13 +1,11 @@
 import React from 'react';
 import Styles from './InitialDash.module.css';
-import { Menu } from '../components/Menu';
-import { Navbar } from '../components/Navbar';
+import { Sidebar } from '../components/Sidebar';
 
 export default function InitialDash() {
   return (
     <div>
-      <Navbar />
-      <Menu />
+      <Sidebar />
     </div>
   );
 }
