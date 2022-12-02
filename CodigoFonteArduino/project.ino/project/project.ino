@@ -12,18 +12,21 @@ float value1;//variavel criada salvar o valor da temperatura
 float value2;//variavel criada salvar o valor da umidade 
 
 void setup() {
-    wifiInitialization(); // Funçaõ que inicializa a conexão wi-fi do microcontrolador
     sensorInitialization(); // Função que inicializa a leitura do sensor de temperatura e umidade
     displayInitialization(); // Função que inicializa o Display LCD
+    wifiInitialization(); // Funçaõ que inicializa a conexão wi-fi do microcontrolador
   //  serverInitialization();// Funçaõ que inicializa o server roteado pelo esp32 
     leds();    
 }
 
 
 void loop() {
-  delay(60000);//Intervalo para reiniciar loop
+  delay(1000);//Intervalo para reiniciar loop
+  clearLCD();
+  checkWifiStatus();
   float temp_01 = scanTemperature(); // Variavel que pega os valores de temperatura do ambiente
   float humidity_01 = scanHumidity(); // Variavel que pega os valores de umidade do ambiente
+  clearLCD();
   showMessage(String(temp_01), String(humidity_01)); // Função que indica no LCD os valores lidos de temperatura e umidade
   color_led();
   value1 = temp_01;

@@ -21,6 +21,11 @@ void displayInitialization() {
   lcd.backlight();
 }
 
+void printLCDwifiNotConnected(){
+   lcd.setCursor(0, 0);
+   lcd.print("Conecte ao WIFI");
+}
+
 void showMessage(String temp, String humidity) {
 // Mostra a mensagem com o status da temperatura setada para o ínicio da primeira linha
   lcd.setCursor(0, 0);
@@ -31,4 +36,7 @@ void showMessage(String temp, String humidity) {
   lcd.print("Umidade:");
   lcd.print(humidity);
   delay(100);
+}
+void clearLCD(){
+  lcd.clear();
 }

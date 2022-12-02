@@ -24,11 +24,9 @@ void sensorInitialization() {
   Serial.println("Adafruit AHT10/AHT20 demo!");
   if (! aht.begin()) {
     Serial.println("Checar fios!");
-    displayMessage("Checar fios");
     while (1) delay(10);
   }
   Serial.println("Sensor funcionando");
-  displayMessage("Sensor funcionando");
 }
 
 // Função que retorna a temperatura do ambiente
