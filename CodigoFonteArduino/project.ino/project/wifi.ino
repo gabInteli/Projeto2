@@ -4,7 +4,7 @@
 const char* ssid = "MSMXD"; //nome da rede wifi
 const char* password = "12345678";//senha da rede wifi
 //Parametros para envio de dados coletados para o server 
-String server_wifi = "http://maker.ifttt.com";
+String server = "http://maker.ifttt.com";
 String eventName = "esp32_data";
 String IFTTT_Key = "dSu74GOXfLf7WJPSASzxEXmzq7JT5XY1TLfBf4UwSu3";
 String IFTTTUrl = "http://maker.ifttt.com/trigger/temp_data/with/key/e272MXJrh4_et5KUm56LmYHjJrNRtj9BjxUT5u6Njr7";
@@ -14,12 +14,11 @@ void wifiInitialization(){
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
     Serial.print(".");
-    printLCDwifiNotConnected();
   }
   Serial.println("Wifi conectado!");
 }
 void sendDataToSheet(void) { // Função que mandará os dados capturados pelos sensores para uma planilha, que atualmente opera como nosso banco de dados.
-  String url = server_wifi + "/trigger/" + eventName + "/with/key/" + IFTTT_Key + "?value1=" + String((float)value1) + "&value2=" + String((float)value2);
+  String url = server + "/trigger/" + eventName + "/with/key/" + IFTTT_Key + "?value1=" + String((float)value1) + "&value2=" + String((float)value2);//deletar value3
   Serial.println(url);
   // Começa a mandar dados para o IFTTT.
   HTTPClient http;
@@ -39,14 +38,11 @@ void sendDataToSheet(void) { // Função que mandará os dados capturados pelos 
     }
   } else {
     Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
+    clearLCD();
+    digitalWrite (blueErrorWifi, HIGH); //acendendo led azul, demonstrando erro de rede. 
+    wifiNotConnectedLCD(); //printando no display, demonstrando o erro de rede.
+    delay(1500);
+    clearLCD(); 
   }
   http.end();
-  delay(1000);
-}
-
-void checkWifiStatus(){
-    while (WiFi.status() != WL_CONNECTED) {
-    printLCDwifiNotConnected();
-    delay(500);
-  }
 }

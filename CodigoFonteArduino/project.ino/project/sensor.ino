@@ -13,6 +13,7 @@ void leds(){
     pinMode(greenHum, OUTPUT);     
     pinMode(redHum, OUTPUT);
     pinMode(yellowError, OUTPUT);
+    pinMode(blueErrorWifi, OUTPUT);
   return;
 }
 
@@ -21,12 +22,12 @@ void sensorInitialization() {
   Wire.begin(SDA_PIN, SCL_PIN); // Configuração dos pinos do sistema
   // Checa se o sensor foi identificado pelo sistema ou não
   Serial.begin(115200);
-  Serial.println("Adafruit AHT10/AHT20 demo!");
+  Serial.println("Testando o sensor...");
   if (! aht.begin()) {
-    Serial.println("Checar fios!");
+    Serial.println("Sensor não encontrado, verificar cabos.");
     while (1) delay(10);
   }
-  Serial.println("Sensor funcionando");
+  Serial.println("Sensor conectado!");
 }
 
 // Função que retorna a temperatura do ambiente

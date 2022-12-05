@@ -56,7 +56,3 @@ void handle_root(){
 
   server.send(200, "text/html", htmlMessage);
 }
-
-
-
-
