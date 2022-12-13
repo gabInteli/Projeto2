@@ -22,12 +22,12 @@ void sensorInitialization() {
   Wire.begin(SDA_PIN, SCL_PIN); // Configuração dos pinos do sistema
   // Checa se o sensor foi identificado pelo sistema ou não
   Serial.begin(115200);
-  Serial.println("Testando o sensor...");
+  Serial.println("Adafruit AHT10/AHT20 demo!");
   if (! aht.begin()) {
-    Serial.println("Sensor não encontrado, verificar cabos.");
+    Serial.println("Could not find AHT? Check wiring");
     while (1) delay(10);
   }
-  Serial.println("Sensor conectado!");
+  Serial.println("AHT10 or AHT20 found");
 }
 
 // Função que retorna a temperatura do ambiente

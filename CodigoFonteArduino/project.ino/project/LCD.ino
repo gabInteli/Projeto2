@@ -32,11 +32,11 @@ void showMessage(String temp, String humidity) {
   lcd.print(humidity);
   delay(100);
 }
-//funcao que apaga o que esta escrito no LCD
+
 void clearLCD(){
   lcd.clear();
 }
-//funcao que printa no LCD que o wifi nao esta conectado
+
 void wifiNotConnectedLCD() {
     lcd.setCursor(0, 0);
     lcd.print("Conecte ao WIFI");

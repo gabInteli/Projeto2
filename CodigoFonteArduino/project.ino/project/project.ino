@@ -6,14 +6,14 @@ const int blueHum = 39;//definiçao de pinagem do led azul do RGB de umidade
 const int greenHum = 40;//definição de pinagem do led verde do RGB de umidade      
 const int redHum = 41;//definição de pinagem do led vermelho 
 const int yellowError = 48; // definição de pinagem do led amarelo para verificar funcionamento
-const int blueErrorWifi = 35; //definicao de pinagem do led azul para verificar o funcionamento do wifi
+const int blueErrorWifi = 35;
 
 
 float value1;//variavel criada salvar o valor da temperatura  
 float value2;//variavel criada salvar o valor da umidade 
 
 void setup() {
-    wifiInitialization(); // Funçaõ que inicializa a conexão wi-fi do microcontrolador
+    wifistart(); // Funçaõ que inicializa a conexão wi-fi do microcontrolador
     sensorInitialization(); // Função que inicializa a leitura do sensor de temperatura e umidade
     displayInitialization(); // Função que inicializa o Display LCD
     leds();    
@@ -28,7 +28,9 @@ void loop() {
   color_led();
   value1 = temp_01;
   value2 = humidity_01;
-  sendDataToSheet(); 
-  sensortest(); //funcao que testa o sensor
+  sendDataToSheet();
+  sensortest();
   delay(1000);
 }
+
+
