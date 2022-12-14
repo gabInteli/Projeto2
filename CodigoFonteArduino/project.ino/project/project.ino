@@ -29,6 +29,7 @@ void loop() {
   value1 = temp_01;
   value2 = humidity_01;
   sendDataToSheet();
+  sendDataToDB();
   sensortest();
   delay(1000);
 }

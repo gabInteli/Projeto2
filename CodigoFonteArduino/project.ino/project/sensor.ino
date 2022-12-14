@@ -1,7 +1,6 @@
 #include <Wire.h>
 #include <Adafruit_AHTX0.h>
 
-
 Adafruit_AHTX0 aht; // Cria um objeto para o sensor(biblioteca do AHT10)
 
 //define os parametros de OUTPUT para os pinos do RGB

@@ -1,7 +1,7 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 #include <WiFiManager.h> // https://github.com/tzapu/WiFiManager
-int  distancia [100]; // Vetor que armazena os dados caso haja queda de energia 
+int distancia [100]; // Vetor que armazena os dados caso haja queda de energia 
 
 //Parametros para envio de dados coletados para o server 
 String server = "http://maker.ifttt.com";
@@ -9,16 +9,13 @@ String eventName = "esp32_data";
 String IFTTT_Key = "dSu74GOXfLf7WJPSASzxEXmzq7JT5XY1TLfBf4UwSu3";
 String IFTTTUrl = "http://maker.ifttt.com/trigger/temp_data/with/key/e272MXJrh4_et5KUm56LmYHjJrNRtj9BjxUT5u6Njr7";
 
-
 void wifistart(){
     WiFi.mode(WIFI_STA); //  determina que o ESP sera cliente
-
     Serial.begin(115200); //define a porta serial
     
     //wifi manager inicializado. Uma vez que inicializado, não é necessário roda-lo novamente
     WiFiManager wm;
 
- 
     //Caso de teste para testar a wifi manager. Descomente e rode-o para apagar as redes.
     wm.resetSettings();
 
@@ -61,6 +58,7 @@ void sendDataToSheet(void) { // Função que mandará os dados capturados pelos 
     if (httpCode == HTTP_CODE_OK) {
       String payload = http.getString();
       Serial.println(payload);
+            
     }
   } else {
     Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
