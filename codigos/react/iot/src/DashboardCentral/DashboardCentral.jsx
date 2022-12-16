@@ -35,10 +35,10 @@ import { HiUserCircle } from 'react-icons/hi'
 import Styles from '../components/Sidebar/Sidebar.module.css'
 const { Header, Content, Footer, Sider } = Layout;
 
-
 import Graph from "./Graph";
 import Graph2 from "./Graph2";
 import Graph3 from "./Graph3";
+import { Sidebar } from "../components/Sidebar";
 
 const { Title, Text } = Typography;
 
@@ -282,48 +282,12 @@ const items = [
 
   return (
     <Fragment>
-       <Layout>
-    <Sider style={{backgroundColor: 'white'}}>
-      <div>
-        <HiUserCircle className={Styles.icon} style={{fontSize:"80pt", marginTop:"35px"}}/>
-        <h1 className={Styles.text} style={{fontSize:"1.5rem"}}>Érico Dias</h1>
-        <h6 className={Styles.text} style={{fontSize:"1rem", paddingBottom:"30px"}}>Analista de Dados</h6>
-      </div>
-      <div className="logo" />
-      <Menu
-        theme="light"
-        mode="inline"
-        
-        defaultSelectedKeys={['1']}
-        items={items}
-      />
-      <Button style={{marginLeft:"34px",
-        marginTop:"10px",
-        borderRadius: "20px",
-        backgroundColor: "grey",
-        border: "none",
-        width:'60%',
-        color:'white',
-        }}><a href='/dashboard'>Dash Geral</a></Button>
-      <Button style={{marginLeft:"34px",
-        marginTop:"10px",
-        borderRadius: "20px",
-        backgroundColor: "#2B3B15",
-        border: "none",
-        color:'white',
-        }}>Configurações</Button>
-    </Sider>
+    <Sidebar>
     <Layout style={{backgroundColor: '#E8E8E8'}}>
-      <Content
-        style={{
-          
-        }}
-      >
         <div
-          className="site-layout-background"
           style={{
             height: 'auto',
-            marginLeft:'5%'
+            marginLeft:'5%',
           }}
         >
           <Row style={{ backgroundColor: "#E8E8E8", height: "auto" }}>
@@ -604,9 +568,8 @@ const items = [
       </Row>
           
         </div>
-      </Content>
     </Layout>
-  </Layout>
+  </Sidebar>
 
       
       <Modal

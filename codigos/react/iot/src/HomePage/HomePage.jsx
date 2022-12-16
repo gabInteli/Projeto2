@@ -2,7 +2,6 @@ import React, { Fragment, useState } from "react";
 import Image from "next/image";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai";
 import { BsGear } from "react-icons/bs";
-import Styles from "../components/Navbar/Navbar.module.css";
 import {DatabaseOutlined} from '@ant-design/icons';
 import DeviceThermostatIcon from "@mui/icons-material/DeviceThermostat";
 import OpacityOutlinedIcon from "@mui/icons-material/OpacityOutlined";
@@ -22,9 +21,6 @@ import {
   Typography,
   Avatar,
 } from "antd";
-
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { Navbar } from "../components/Navbar";
 
 const { Title, Text } = Typography;
 

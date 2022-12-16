@@ -21,8 +21,11 @@ const items = [
     getItem('Documentação', '2', <AiOutlineFile />),
     getItem('Sobre', '3', <AiOutlineInfoCircle />),
 ]
-const App = () => (
-  <Layout>
+export default function Sidebar({
+  children,
+}){
+  return(
+    <Layout>
     <Sider style={{backgroundColor: 'white'}}>
       <div>
         <HiUserCircle className={Styles.icon} style={{fontSize:"80pt", marginTop:"35px"}}/>
@@ -30,20 +33,25 @@ const App = () => (
         <h6 className={Styles.text} style={{fontSize:"1rem", paddingBottom:"30px"}}>Analista de Dados</h6>
       </div>
       <div className="logo" />
-      <Menu
-        theme="light"
-        mode="inline"
-        
-        defaultSelectedKeys={['1']}
-        items={items}
-      />
+
       <Button style={{marginLeft:"34px",
         marginTop:"10px",
-        borderRadius: "20px",
-        backgroundColor: "#2B3B15",
+        backgroundColor: "white",
         border: "none",
-        color:'white',
-        }}>Configurações</Button>
+        color:'black',
+        }} href='/'><AiOutlineHome style={{marginRight:'6px'}}/>Home</Button>
+        <Button style={{marginLeft:"34px",
+        marginTop:"10px",
+        backgroundColor: "white",
+        border: "none",
+        color:'black',
+        }} target='_blank' href='https://drive.google.com/file/d/1Yz1FraiSvvyy2icXPkn30ycW80wFPQdX/view?usp=share_link'><AiOutlineFile style={{marginRight:'6px'}}/>Documentação</Button>
+        <Button style={{marginLeft:"34px",
+        marginTop:"10px",
+        backgroundColor:'none',
+        border: "none",
+        color:'black',
+        }} href='/about'><AiOutlineInfoCircle style={{marginRight:'6px'}}/>Sobre</Button>
     </Sider>
     <Layout style={{backgroundColor: '#E8E8E8'}}>
       <Content
@@ -58,11 +66,12 @@ const App = () => (
             height: 'auto',
           }}
         >
-          <MainScreen />
+          {children}
           
         </div>
       </Content>
     </Layout>
   </Layout>
-);
-export default App;
+  )
+}
+ 
