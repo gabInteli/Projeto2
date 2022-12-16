@@ -1,25 +1,47 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
-//nome da rede wifi do microcontrolador e sua senha 
-const char* ssid = "MSMXD"; //nome da rede wifi
-const char* password = "12345678";//senha da rede wifi
+#include <WiFiManager.h> // https://github.com/tzapu/WiFiManager
+int distancia [100]; // Vetor que armazena os dados caso haja queda de energia 
+
 //Parametros para envio de dados coletados para o server 
-String server_wifi = "http://maker.ifttt.com";
+String server = "http://maker.ifttt.com";
 String eventName = "esp32_data";
 String IFTTT_Key = "dSu74GOXfLf7WJPSASzxEXmzq7JT5XY1TLfBf4UwSu3";
 String IFTTTUrl = "http://maker.ifttt.com/trigger/temp_data/with/key/e272MXJrh4_et5KUm56LmYHjJrNRtj9BjxUT5u6Njr7";
-void wifiInitialization(){
-  WiFi.mode(WIFI_STA); // Configura o ESP32 como uma estação WiFi, ou seja, a placa se conectará a um ponto de acesso.
-  WiFi.begin(ssid, password); // Conecta na rede definida pelas variáveis.
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(500);
-    Serial.print(".");
-    printLCDwifiNotConnected();
-  }
-  Serial.println("Wifi conectado!");
+
+void wifistart(){
+    WiFi.mode(WIFI_STA); //  determina que o ESP sera cliente
+    Serial.begin(115200); //define a porta serial
+    
+    //wifi manager inicializado. Uma vez que inicializado, não é necessário roda-lo novamente
+    WiFiManager wm;
+
+    //Caso de teste para testar a wifi manager. Descomente e rode-o para apagar as redes.
+    wm.resetSettings();
+
+    // Irá tentar conectar automaticamente 'as redes salvas
+    // se não for possível conectar a nenhuma rede salva, será gerada uma rede ( "C2PO-Estufa1"),
+
+
+    bool res;
+    res = wm.autoConnect("C2PO-Estufa1"); // rede wifi para configuração de parâmetros
+
+    if(!res) {
+        Serial.println("Erro ao conectar...");
+        // ESP.restart();
+    } 
+    else {
+        //if you get here you have connected to the WiFi    
+        Serial.println("conectado com sucesso!");
+    }
 }
+
+
+
+
+
 void sendDataToSheet(void) { // Função que mandará os dados capturados pelos sensores para uma planilha, que atualmente opera como nosso banco de dados.
-  String url = server_wifi + "/trigger/" + eventName + "/with/key/" + IFTTT_Key + "?value1=" + String((float)value1) + "&value2=" + String((float)value2);
+  String url = server + "/trigger/" + eventName + "/with/key/" + IFTTT_Key + "?value1=" + String((float)value1) + "&value2=" + String((float)value2);//deletar value3
   Serial.println(url);
   // Começa a mandar dados para o IFTTT.
   HTTPClient http;
@@ -36,17 +58,15 @@ void sendDataToSheet(void) { // Função que mandará os dados capturados pelos 
     if (httpCode == HTTP_CODE_OK) {
       String payload = http.getString();
       Serial.println(payload);
+            
     }
   } else {
     Serial.printf("[HTTP] GET... failed, error: %s\n", http.errorToString(httpCode).c_str());
+    clearLCD();
+    digitalWrite (blueErrorWifi, HIGH);  
+    wifiNotConnectedLCD(); 
+    delay(1500);
+    clearLCD();
   }
   http.end();
-  delay(1000);
-}
-
-void checkWifiStatus(){
-    while (WiFi.status() != WL_CONNECTED) {
-    printLCDwifiNotConnected();
-    delay(500);
-  }
 }

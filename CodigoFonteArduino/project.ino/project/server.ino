@@ -1,62 +1,42 @@
 #include <WiFi.h>
-#include <WiFiAP.h>
-#include <WebServer.h>
-/* INCLUDE ESP2SOTA LIBRARY */
-#include <ESP2SOTA.h>
+#include <HTTPClient.h>
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
 
-const char* ssid_server = "ESP32_C2PO";
-const char* password_server = "wifi_123";
+const char* DBserverName = "http://c2po.000webhostapp.com/esp-post-data.php";
 
-//String htmlMessage = "";
+// Keep this API Key value to be compatible with the PHP code provided in the project page.
+// If you change the apiKeyValue value, the PHP file /esp-post-data.php also needs to have the same key
+String apiKeyValue = "tPmAT5Ab3j7F9";
+String sensorName = "AHT10";
+String sensorLocation = "Office";
 
-WebServer server(80);
+unsigned long lastTime = 0;
+unsigned long timerDelay = 30000;
 
-
-void serverInitialization() {
+void sendDataToDB() {
+  sensors_event_t humidity, temp; // Criação de objetos
+  aht.getEvent(&humidity, &temp); // Preenche os objetos temp e humidity com dados novos.
+  Serial.print("Temperatura: "); Serial.print(temp.temperature); Serial.println(" degrees C"); 
   
-  Serial.begin(115200);
-  WiFi.mode(WIFI_AP);  
-  WiFi.softAP(ssid_server, password_server);
-  delay(1000);
-  IPAddress IP = IPAddress (10, 10, 10, 1);
-  IPAddress NMask = IPAddress (255, 255, 255, 0);
-  WiFi.softAPConfig(IP, IP, NMask);
-  IPAddress myIP = WiFi.softAPIP();
-  Serial.print("AP IP address: ");
-  Serial.println(myIP);
+  if ((millis() - lastTime) > timerDelay) {
+    if(WiFi.status()== WL_CONNECTED){
+      WiFiClient client;
+      HTTPClient http;
 
+      http.begin(client, DBserverName);
+      http.addHeader("Content-Type", "application/x-www-form-urlencoded");
 
-  server.on("/myurl", handle_root);
-  /* INITIALIZE ESP2SOTA LIBRARY */
-  ESP2SOTA.begin(&server);
-  server.begin();
+      String httpRequestData = "api_key=" + apiKeyValue + "&sensor=" + sensorName + "&value1=" + temp.temperature + "&value2=" + humidity.relative_humidity;
+      Serial.print("httpRequestData: ");
+      Serial.println(httpRequestData);
 
-
+      int httpResponseCode = http.POST(httpRequestData);
+      http.end();
+    }
+    else {
+      Serial.println("WiFi Disconnected");
+    }
+    lastTime = millis();
+  }
 }
-
-void local_web() {
-  /* HANDLE UPDATE REQUESTS */
-  server.handleClient();
-  delay(5);
-}
-
-// Handle root url (/)
-void handle_root(){
-  String htmlMessage = "";
-  htmlMessage += "<!DOCTYPE html>";
-  htmlMessage += "<html>";
-  htmlMessage += "<body>";
-
-  htmlMessage += "<h2> Temperatura: </h2>";
-  htmlMessage += String(value1);
-  htmlMessage += "<h2> Umidade: </h2>";
-  htmlMessage += String(value2);
-  
-  htmlMessage += "</html>";
-
-  server.send(200, "text/html", htmlMessage);
-}
-
-
-
-

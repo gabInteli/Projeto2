@@ -1,11 +1,15 @@
 import React from 'react';
 import Styles from './InitialDash.module.css';
 import { Sidebar } from '../components/Sidebar';
+import { MainScreen } from '../components/MainScreen';
+
 
 export default function InitialDash() {
   return (
     <div>
-      <Sidebar />
+      <Sidebar>
+        <MainScreen/>
+      </Sidebar>
     </div>
   );
 }

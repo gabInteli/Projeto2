@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import Styles from "./MainScreen.module.css";
 import { Col, Row, Space, Card } from "antd";
 import "antd/dist/antd.css";
@@ -21,13 +21,6 @@ const status = [
   },
   {
     Icon: (
-      <AlertOutlined
-        style={{ color: "yellow", fontSize: "24pt", backgroundColor: "#fff", marginLeft:'100%' }}
-      />
-    ),
-  },
-  {
-    Icon: (
       <WarningOutlined
         style={{ color: "red", fontSize: "24pt", backgroundColor: "#fff", marginLeft:'100%' }}
       />
@@ -36,8 +29,19 @@ const status = [
 ];
 
 export default function MainScreen(){ 
+  const [show, setShow] = useState(false)
   const [temperature, setTempNow] = useState('')
   const [humidity, setHumNow] = useState('')
+
+  console.log(humidity)
+
+  useEffect(() => { 
+  if(humidity >= '37,08' || humidity <= '26,6'){
+    setShow(true)
+  }
+  else{
+    setShow(false)
+  }})
 
   var id = "14bpB3xWiXSKLvj0G98KrihitnDrFBWzCa9LvV2oOv_Y";
   var gid = "0";
@@ -74,7 +78,7 @@ json.table.cols[4].label = "Umidade";
         <div className={Styles.cardContainer}>
           <div className={Styles.card}>
             <CardMenu
-              alert={status[0].Icon}
+              alert={show ? (status[1].Icon) : (status[0].Icon)}
               heading="1"
               tempText={humidity}
               humiText={temperature}
@@ -82,7 +86,7 @@ json.table.cols[4].label = "Umidade";
           </div>
           <div className={Styles.card}>
             <CardMenu
-              alert={status[2].Icon}
+              alert={show ? (status[0].Icon) : (status[1].Icon)}
               heading="2"
               tempText="XX"
               humiText='YY'
@@ -90,7 +94,7 @@ json.table.cols[4].label = "Umidade";
           </div>
           <div className={Styles.card}>
             <CardMenu
-              alert={status[1].Icon}
+              alert={show ? (status[0].Icon) : (status[1].Icon)}
               heading="3"
               tempText='XX'
               humiText='YY'
@@ -98,7 +102,7 @@ json.table.cols[4].label = "Umidade";
           </div>
           <div className={Styles.card}>
             <CardMenu
-              alert={status[0].Icon}
+              alert={show ? (status[0].Icon) : (status[1].Icon)}
               heading="4"
               tempText="XX"
               humiText='YY'

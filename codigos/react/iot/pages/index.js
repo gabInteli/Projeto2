@@ -1,7 +1,7 @@
-import { LoginPage } from '../src/LoginPage'
+import { HomePage } from '../src/HomePage'
 
 export default function Home() {
   return (
-   <LoginPage></LoginPage>
+   <HomePage></HomePage>
   )
 }

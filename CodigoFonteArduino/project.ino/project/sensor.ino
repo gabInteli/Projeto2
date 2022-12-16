@@ -1,7 +1,6 @@
 #include <Wire.h>
 #include <Adafruit_AHTX0.h>
 
-
 Adafruit_AHTX0 aht; // Cria um objeto para o sensor(biblioteca do AHT10)
 
 //define os parametros de OUTPUT para os pinos do RGB
@@ -13,6 +12,7 @@ void leds(){
     pinMode(greenHum, OUTPUT);     
     pinMode(redHum, OUTPUT);
     pinMode(yellowError, OUTPUT);
+    pinMode(blueErrorWifi, OUTPUT);
   return;
 }
 
@@ -23,10 +23,10 @@ void sensorInitialization() {
   Serial.begin(115200);
   Serial.println("Adafruit AHT10/AHT20 demo!");
   if (! aht.begin()) {
-    Serial.println("Checar fios!");
+    Serial.println("Could not find AHT? Check wiring");
     while (1) delay(10);
   }
-  Serial.println("Sensor funcionando");
+  Serial.println("AHT10 or AHT20 found");
 }
 
 // Função que retorna a temperatura do ambiente
