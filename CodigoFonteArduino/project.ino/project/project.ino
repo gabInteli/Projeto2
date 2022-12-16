@@ -18,6 +18,7 @@ void setup() {
     sensorInitialization(); // Função que inicializa a leitura do sensor de temperatura e umidade
     displayInitialization(); // Função que inicializa o Display LCD
     leds();    
+    servoControl(0, 0, 0);
 }
 
 

@@ -1,7 +1,7 @@
 
 #define PERIODO_50HZ      20     // 20ms ou 1/50
 #define MAXBITSRESOLUCAO  1024   // para resulucao de 10bits, o maximo valor do DUTY cycle
-#define INICIODUTY_MS     0.9    // o ponto, em ms onde o angulo é -90
+#define INICIODUTY_MS     0.5    // o ponto, em ms onde o angulo é -90
 #define FIMDUTY_MS        2.5    // o ponto em ms onde o angulo é 90
 #define FACTORDEFAULT     0.05   // menor pedaço de movimento em MS
 #define CANALDEFAULT      0
@@ -9,10 +9,8 @@
 #define RESOLUCAO         10
 #define DELTADEFAULT      2
 #define INICIODEFAULT     40
-#define FIMDEFAULT        120
+#define FIMDEFAULT        180
 #define TEMPOPASSO        50 //tempo para cada mudança de passo em ms
-
-
 
 // Cria a classe Servo09g, que faz definições da entrada do motor com o ESP32.
 class Servo9G{

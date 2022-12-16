@@ -3,10 +3,6 @@
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 
-const char* ssid = "Inteli-welcome";
-const char* password = "";
-
-//Your Domain name with URL path or IP address with path
 const char* DBserverName = "http://c2po.000webhostapp.com/esp-post-data.php";
 
 // Keep this API Key value to be compatible with the PHP code provided in the project page.
